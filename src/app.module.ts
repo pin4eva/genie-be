@@ -9,6 +9,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { config } from 'src/utils/config';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
+import { AssetModule } from './asset/asset.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
       cache: new InMemoryLRUCache(), // for server side caching
     }),
     UserModule,
+    AssetModule,
   ],
 
   controllers: [AppController],

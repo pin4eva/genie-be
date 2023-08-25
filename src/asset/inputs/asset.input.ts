@@ -14,3 +14,11 @@ export class UpdateAssetInput extends PartialType(CreateAssetInput, InputType) {
   @Field()
   id: string;
 }
+
+@InputType()
+export class AssetFilterInput {
+  @Field({ nullable: true })
+  symbol?: string;
+  @Field({ nullable: true })
+  limit?: number;
+}

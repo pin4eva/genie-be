@@ -6,7 +6,11 @@ import {
 import { Asset } from './entities/asset.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateAssetInput, UpdateAssetInput } from './inputs/asset.input';
+import {
+  AssetFilterInput,
+  CreateAssetInput,
+  UpdateAssetInput,
+} from './inputs/asset.input';
 
 @Injectable()
 export class AssetService {
@@ -16,9 +20,10 @@ export class AssetService {
 
   // create asset
   async createAsset(input: CreateAssetInput): Promise<Asset> {
+    const { name, symbol } = input;
     try {
       const existingAsset = await this.assetRepo.findOne({
-        where: [{ symbol: input.symbol }, { name: input.name }],
+        where: [{ symbol }, { name }],
       });
       if (existingAsset) throw new BadRequestException('Asset already exist');
 
@@ -38,6 +43,7 @@ export class AssetService {
     try {
       const asset = await this.assetRepo.findOne({ where: { id: input.id } });
       if (!asset) throw new NotFoundException('No matching record for asset');
+
       Object.assign(asset, input);
 
       await asset.save();
@@ -49,10 +55,19 @@ export class AssetService {
   }
 
   // get assets
-  async getAssets(): Promise<Asset[]> {
+  async getAssets(input?: AssetFilterInput) {
     try {
-      const assets = await this.assetRepo.find();
-      return assets;
+      const limit = input?.limit || 20;
+
+      const assets = this.assetRepo.createQueryBuilder('asset').limit(limit);
+
+      if (input?.symbol) {
+        assets.where('LOWER(asset.symbol) like :symbol ', {
+          symbol: input.symbol.toLowerCase(),
+        });
+      }
+
+      return assets.getMany();
     } catch (error) {
       throw error;
     }

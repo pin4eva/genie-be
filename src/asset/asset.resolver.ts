@@ -1,7 +1,11 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AssetService } from './asset.service';
 import { Asset } from './entities/asset.entity';
-import { CreateAssetInput, UpdateAssetInput } from './inputs/asset.input';
+import {
+  AssetFilterInput,
+  CreateAssetInput,
+  UpdateAssetInput,
+} from './inputs/asset.input';
 
 @Resolver()
 export class AssetResolver {
@@ -21,8 +25,8 @@ export class AssetResolver {
 
   // get assets
   @Query(() => [Asset])
-  getAssets() {
-    return this.assetService.getAssets();
+  getAssets(@Args('filter', { nullable: true }) filter: AssetFilterInput) {
+    return this.assetService.getAssets(filter);
   }
 
   // get asset

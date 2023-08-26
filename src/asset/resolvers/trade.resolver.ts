@@ -1,13 +1,13 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
-import { TradeService } from '../services/trade.service';
-import { Trade } from '../entities/trade.entity';
+import { TradeResponse } from '../entities/trade.entity';
 import { TradeFilterInput } from '../inputs/trade.input';
+import { TradeService } from '../services/trade.service';
 
 @Resolver()
 export class TradeResolver {
   constructor(private readonly tradeService: TradeService) {}
 
-  @Query(() => [Trade])
+  @Query(() => TradeResponse)
   getTrades(@Args('filter', { nullable: true }) filter?: TradeFilterInput) {
     return this.tradeService.getTrades(filter);
   }

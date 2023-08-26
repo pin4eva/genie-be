@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Trade } from '../entities/trade.entity';
+import { Trade, TradeResponse } from '../entities/trade.entity';
 import { TradeFilterInput } from '../inputs/trade.input';
 
 @Injectable()
@@ -11,17 +11,8 @@ export class TradeService {
   ) {}
 
   // get trades
-  async getTrades(input?: TradeFilterInput) {
+  async getTrades(input?: TradeFilterInput): Promise<TradeResponse> {
     try {
-      // const trades = await this.tradeRepo.find({
-      //   relations: {
-      //     base: true,
-      //     quote: true,
-      //     fee: true,
-      //     user: true,
-      //     labels: true,
-      //   },
-      // });
       const limit = input?.limit || 50;
       const trades = this.tradeRepo
         .createQueryBuilder('trade')
@@ -43,8 +34,9 @@ export class TradeService {
         });
       }
       trades.orderBy('trade.placed_at', 'DESC');
+      const data = await trades.getMany();
 
-      return trades.getMany();
+      return { total: data.length, trades: data };
     } catch (error) {
       throw error;
     }

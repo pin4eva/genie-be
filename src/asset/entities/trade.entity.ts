@@ -51,3 +51,11 @@ export class Trade extends BaseEntity {
   @Column({ type: 'timestamp' })
   placed_at: Date;
 }
+
+@ObjectType()
+export class TradeResponse {
+  @Field(() => [Trade])
+  trades: Trade[];
+  @Field()
+  total: number;
+}

@@ -14,6 +14,7 @@ export class TradeService {
   async getTrades(input?: TradeFilterInput): Promise<TradeResponse> {
     try {
       const limit = input?.limit || 50;
+      const offset = input?.offset || 0;
       const trades = this.tradeRepo
         .createQueryBuilder('trade')
         .leftJoinAndSelect('trade.base', 'base')
@@ -21,7 +22,8 @@ export class TradeService {
         .leftJoinAndSelect('trade.fee', 'fee')
         .leftJoinAndSelect('trade.labels', 'labels')
         .leftJoinAndSelect('trade.user', 'user')
-        .limit(limit);
+        .offset(offset)
+        .take(limit);
 
       if (input?.base_symbol) {
         trades.where('LOWER(base.symbol) like :base_symbol', {

@@ -3,14 +3,14 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Asset } from './entities/asset.entity';
+import { Asset } from '../entities/asset.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   AssetFilterInput,
   CreateAssetInput,
   UpdateAssetInput,
-} from './inputs/asset.input';
+} from '../inputs/asset.input';
 
 @Injectable()
 export class AssetService {

@@ -1,11 +1,11 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { AssetService } from './asset.service';
-import { Asset } from './entities/asset.entity';
+import { AssetService } from '../services/asset.service';
+import { Asset } from '../entities/asset.entity';
 import {
   AssetFilterInput,
   CreateAssetInput,
   UpdateAssetInput,
-} from './inputs/asset.input';
+} from '../inputs/asset.input';
 
 @Resolver()
 export class AssetResolver {

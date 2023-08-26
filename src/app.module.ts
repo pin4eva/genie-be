@@ -1,15 +1,14 @@
+import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
+import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { databaseOptions } from 'datasource';
-import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
-import { GraphQLModule } from '@nestjs/graphql';
-import { join } from 'path';
 import { config } from 'src/utils/config';
-import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 import { AssetModule } from './asset/asset.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -20,7 +19,7 @@ import { AssetModule } from './asset/asset.module';
           ...databaseOptions,
           synchronize: config.NODE_ENV === 'development',
           logging: config.NODE_ENV === 'development' ? ['error'] : ['error'],
-          // dropSchema: true,
+          dropSchema: true,
         };
       },
     }),

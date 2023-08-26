@@ -1,0 +1,9 @@
+[
+  {"id":"7b026918-d8cb-4047-9bdf-7e9364248685","symbol":"USDT","name":"Tether"},
+  {"id":"df08a817-d1b8-4068-be08-1e1bd78c3b31","symbol":"BNB","name":"Binance Coin"},
+  {"id":"73409e99-af82-4679-b747-47cec5dba975","symbol":"BTC","name":"Bitcoin"},
+  {"id":"32457bed-e5a2-48e9-bb73-d5955d922c5d","symbol":"ETH","name":"Ethereum"},
+  {"id":"d19a52aa-2e88-433f-9f2a-746bd3fb8a3a","symbol":"DOGE","name":"Dogecoin"},
+  {"id":"d9e682dc-3db1-4fd7-b5b8-ff4d66930b1b","symbol":"MATIC","name":"Polygon"},
+  {"id":"18678599-f0a5-4c5f-9b9d-e939be7eb911","symbol":"DOT","name":"Polkadot"},
+  {"id":"cb9e210c-2120-44fd-8afa-106eaa3d115b","symbol":"ATOM","name":"Cosmos"}]
